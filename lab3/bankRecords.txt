@@ -1,6 +1,6 @@
 Avg inc. for Females: $28646.32
 Avg inc. for Males: $27225.83
-Num. of Females With Mortgage & savings acct:74
+Num. of Females With Mortgage & savings acct:71
 INNER_CITY region males With car & 1 child :15
 SUBURBAN region males With car & 1 child :3
 TOWN region males With car & 1 child :7

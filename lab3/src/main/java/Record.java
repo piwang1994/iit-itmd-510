@@ -20,7 +20,7 @@ public class Record extends BankRecords{
         }
     }
 
-    public  void avgMaleAndFemale(Header[] headers, Comparator<Header> comp) throws IOException {
+    public  void avgMaleAndFemale(Header[] headers, Comparator<Header> comp)  {
         Arrays.sort(headers, comp);
         // set up needed variables to gather counts & income  by sex to determine average income by sex
         int maleCt = 0, femCt = 0;
@@ -56,7 +56,7 @@ public class Record extends BankRecords{
         for (Header header : headers)
             if (header.getSex().equals(Sex.FEMALE) &
                     header.getMortgage().equals(YesOrNo.YES) &
-                    header.getCurrent_act().equals(YesOrNo.YES)) {
+                    header.getSave_act().equals(YesOrNo.YES)) {
                 ++femCt;
             }
         // display resulting averages to console and to file
@@ -69,7 +69,7 @@ public class Record extends BankRecords{
         }
     }
 
-    public void numOfMaleWithCarAndOneChildPerLoc(Header[] headers, Comparator<Header> comp) throws IOException {
+    public void numOfMaleWithCarAndOneChildPerLoc(Header[] headers, Comparator<Header> comp)  {
         HashMap<Region, Integer> RegionMale = new HashMap<>();
         // set up needed variables to gather counts & income  by sex to determine average income by sex
 
