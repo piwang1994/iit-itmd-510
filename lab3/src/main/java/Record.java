@@ -52,11 +52,11 @@ public class Record extends BankRecords{
         Arrays.sort(headers, comp);
         // set up needed variables to gather counts & income  by sex to determine average income by sex
         int  femCt = 0;
-
+        //my classmate told that enum may better be ahead of called method,it can prevent null point exception
         for (Header header : headers)
             if (header.getSex().equals(Sex.FEMALE) &
-                    header.getMortgage().equals(YesOrNo.YES) &
-                    header.getSave_act().equals(YesOrNo.YES)) {
+                    YesOrNo.YES.equals(header.getMortgage())  &
+                    YesOrNo.YES.equals(header.getSave_act())) {
                 ++femCt;
             }
         // display resulting averages to console and to file
@@ -74,9 +74,9 @@ public class Record extends BankRecords{
         // set up needed variables to gather counts & income  by sex to determine average income by sex
 
         for (Header header : headers)
-            if (header.getSex().equals(Sex.MALE)
-                    & header.getCar().equals(YesOrNo.YES)
-                    & header.getChildren()==1)  {
+            if (Sex.MALE.equals(header.getSex())
+                    & YesOrNo.YES.equals(header.getCar())
+                    & 1==header.getChildren())  {
 
                 // introduce by idea
                 RegionMale.merge(header.getRegion(), 1, Integer::sum);
