@@ -20,7 +20,7 @@ public class BankRecords extends Client {
     // store the maxLength of every attribute
     HeaderFieldMaxLength maxLength = new HeaderFieldMaxLength();
     //store the data in ffile
-    List<ArrayList<String>> arr= new ArrayList<>();
+    public List<ArrayList<String>> arr= new ArrayList<>();
 
     List<Header> objs=new ArrayList<>();
 

@@ -14,9 +14,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			stage = primaryStage;
-			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
-		    FXMLLoader loader = new FXMLLoader(Main.class.getResource("/views/LoginView.fxml"));
-	        AnchorPane root = (AnchorPane) loader.load();
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("src/main/views/LoginView.fxml"));
+//		    FXMLLoader loader = new FXMLLoader(Main.class.getResource("src/main/views/LoginView.fxml"));
+//	        AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setTitle("Login View");
