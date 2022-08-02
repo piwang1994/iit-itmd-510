@@ -10,7 +10,7 @@ public class DeserializeDemo {
         System.out.println(System.getProperty("user.dir"));
         Employee e = null;
         try {
-            FileInputStream fileIn = new FileInputStream("employee.ser");
+            FileInputStream fileIn = new FileInputStream("src/main/resources/employee.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             e = (Employee) in.readObject();
             in.close();
