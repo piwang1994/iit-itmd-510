@@ -2,9 +2,9 @@ package records;
 
 import java.util.Comparator;
 
-public class SexComparator implements Comparator<Header> {
+public class SexComparator implements Comparator<Person> {
     @Override
-    public int compare(Header o1, Header o2) {
+    public int compare(Person o1, Person o2) {
         return o1.getSex().compareTo(o2.getSex());
     }
 }

@@ -1,5 +1,7 @@
 package records;
 
+import records.enums.YesOrNo;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,19 +24,19 @@ public class Record extends BankRecords{
         }
     }
 
-    public  void avgMaleAndFemale(Header[] headers, Comparator<Header> comp)  {
-        Arrays.sort(headers, comp);
+    public  void avgMaleAndFemale(Person[] people, Comparator<Person> comp)  {
+        Arrays.sort(people, comp);
         // set up needed variables to gather counts & income  by sex to determine average income by sex
         int maleCt = 0, femCt = 0;
         double maleInc =0, femInc = 0;
 
-        for (Header header : headers)
-            if (header.getSex().equals(Sex.FEMALE)) {
+        for (Person person : people)
+            if (person.getSex().equals(Sex.FEMALE)) {
                 ++femCt;
-                femInc += header.getIncome();
+                femInc += person.getIncome();
             } else {
                 ++maleCt;
-                maleInc += header.getIncome();
+                maleInc += person.getIncome();
             }
             // display resulting averages to console and to file
         System.out.printf("Avg inc. for Females: $%.2f  \n" , (femInc/femCt));
@@ -50,15 +52,15 @@ public class Record extends BankRecords{
         }
 
     }
-    public void numOfFemaleWithAccount(Header[] headers, Comparator<Header> comp) {
-        Arrays.sort(headers, comp);
+    public void numOfFemaleWithAccount(Person[] people, Comparator<Person> comp) {
+        Arrays.sort(people, comp);
         // set up needed variables to gather counts & income  by sex to determine average income by sex
         int  femCt = 0;
         //my classmate told that enum may better be ahead of called method,it can prevent null point exception
-        for (Header header : headers)
-            if (header.getSex().equals(Sex.FEMALE) &
-                    YesOrNo.YES.equals(header.getMortgage())  &
-                    YesOrNo.YES.equals(header.getSave_act())) {
+        for (Person person : people)
+            if (person.getSex().equals(Sex.FEMALE) &
+                    YesOrNo.YES.equals(person.getMortgage())  &
+                    YesOrNo.YES.equals(person.getSave_act())) {
                 ++femCt;
             }
         // display resulting averages to console and to file
@@ -71,22 +73,22 @@ public class Record extends BankRecords{
         }
     }
 
-    public void numOfMaleWithCarAndOneChildPerLoc(Header[] headers, Comparator<Header> comp)  {
+    public void numOfMaleWithCarAndOneChildPerLoc(Person[] people, Comparator<Person> comp)  {
         HashMap<Region, Integer> RegionMale = new HashMap<>();
         // set up needed variables to gather counts & income  by sex to determine average income by sex
 
-        for (Header header : headers)
-            if (Sex.MALE.equals(header.getSex())
-                    & YesOrNo.YES.equals(header.getCar())
-                    & 1==header.getChildren())  {
+        for (Person person : people)
+            if (Sex.MALE.equals(person.getSex())
+                    & YesOrNo.YES.equals(person.getCar())
+                    & 1== person.getChildren())  {
 
                 // introduce by idea
-                RegionMale.merge(header.getRegion(), 1, Integer::sum);
+                RegionMale.merge(person.getRegion(), 1, Integer::sum);
 
-//               if (RegionMale.get(header.getRegion())==null){
-//                    RegionMale.put(header.getRegion(),1);
+//               if (RegionMale.get(person.getRegion())==null){
+//                    RegionMale.put(person.getRegion(),1);
 //                }else {
-//                    RegionMale.put(header.getRegion(),RegionMale.get(header.getRegion())+1);
+//                    RegionMale.put(person.getRegion(),RegionMale.get(person.getRegion())+1);
 //                }
 
             }

@@ -1,5 +1,7 @@
 package records;
 
+import records.enums.YesOrNo;
+
 enum Sex {
     FEMALE, MALE
 }
@@ -8,11 +10,8 @@ enum Region {
     INNER_CITY, TOWN, RURAL, SUBURBAN
 }
 
-enum YesOrNo {
-    YES, NO
-}
 
-public class Header {
+public class Person {
     String id;
     int age;
     Sex sex;

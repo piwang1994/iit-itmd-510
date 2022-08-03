@@ -10,7 +10,7 @@ public class Boot {
         bankRecord.processData();
         int len=bankRecord.objs.size();
 
-        Header[] objs = bankRecord.objs.toArray(new Header[len]);
+        Person[] objs = bankRecord.objs.toArray(new Person[len]);
         bankRecord.avgMaleAndFemale(objs,new SexComparator());
         bankRecord.numOfFemaleWithAccount(objs,new SexComparator());
         bankRecord.numOfMaleWithCarAndOneChildPerLoc(objs,new LocationComparator());
