@@ -1,6 +1,8 @@
 package records.base;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     String id;
     int age;
     Sex sex;
@@ -40,6 +42,24 @@ public class Person {
 
     public Region getRegion() {
         return region;
+    }
+
+    @Override
+    public String toString() {
+        return "Person[" +
+                "id='" + id + '\'' +
+                ", age=" + age +
+                ", sex=" + sex.name() +
+                ", region=" + region +
+                ", income=" + income +
+                ", married=" + married.name() +
+                ", children=" + children +
+                ", car=" + car.name() +
+                ", save_act=" + save_act.name() +
+                ", current_act=" + current_act.name() +
+                ", mortgage=" + mortgage.name() +
+                ", pep=" + pep.name() +
+                ']';
     }
 
     public void setRegion(Region region) {

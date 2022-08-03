@@ -6,12 +6,12 @@ import records.base.Person;
 import records.base.YesOrNo;
 import views.LoanView;
 
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class LoanProcessing {
@@ -60,6 +60,13 @@ public class LoanProcessing {
                     viewRecs(dao.getGoodRecords());
                     break;
                 case 7:
+                    serialObject(objs);
+                    break;
+                case 8:
+                    deSerialObject();
+                    break;
+
+                case 9:
                     System.out.println("bye for now!");
                     System.exit(0);
             }
@@ -68,7 +75,10 @@ public class LoanProcessing {
     }
 
     public static void menu() {
-        String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs\n4.Delete recs\n5.print Recs (Console)\n6.View Recs (Window)\n7.Exit";
+        String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs" +
+                "\n4.Delete recs\n5.print all Recs (Console)\n6.View good Recs (Window)" +
+                "\n7.Serial recs\n8.deSerial Recs" +
+                "\n9.Exit";
         System.out.println(menuItems);
     }
 
@@ -82,5 +92,55 @@ public class LoanProcessing {
             e.printStackTrace();
         }
 
+    }
+
+    public static void serialObject(List<Person> objs){
+        HashMap<Long, Person> hmap = new HashMap<>();
+        long i= 0L;
+        for (Person obj : objs) {
+            hmap.put( ++i,obj);
+        }
+        System.out.println("count of person is "+i);
+        BankRecordSerialObject bankRecordSerialObject = new BankRecordSerialObject(hmap);
+        try {
+            FileOutputStream fos = new FileOutputStream("BankRecordSerialObject.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(bankRecordSerialObject);
+            oos.close();
+            fos.close();
+            System.out.print("Serialized HashMap data is saved in BankRecordSerialObject.ser");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public static void deSerialObject() {
+
+        BankRecordSerialObject beso = null;
+        try {
+            FileInputStream fis = new FileInputStream("BankRecordSerialObject.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            beso = (BankRecordSerialObject) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+        System.out.println("Deserialized HashMap..");
+        // Display content using Iterator
+
+        Set set = beso.BRmap.entrySet();
+        System.out.println(set);
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry) iterator.next();
+            System.out.print("key: " + mentry.getKey() + " & Value: ");
+            System.out.println(mentry.getValue());
+        }
     }
 }
