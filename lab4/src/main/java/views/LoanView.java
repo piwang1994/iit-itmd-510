@@ -44,6 +44,8 @@ public class LoanView {
             frame.setVisible(true);
 
             // rs.close(); //close ResultSet instance
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

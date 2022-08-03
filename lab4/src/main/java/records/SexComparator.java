@@ -1,5 +1,7 @@
 package records;
 
+import records.base.Person;
+
 import java.util.Comparator;
 
 public class SexComparator implements Comparator<Person> {

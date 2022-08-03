@@ -2,8 +2,8 @@ package controller;
 
 import models.DaoModel;
 import records.BankRecords;
-import records.Person;
-import records.enums.YesOrNo;
+import records.base.Person;
+import records.base.YesOrNo;
 import views.LoanView;
 
 import java.io.IOException;
@@ -15,7 +15,9 @@ import java.util.Scanner;
 
 
 public class LoanProcessing {
-    static BigDecimal criterion= BigDecimal.valueOf(500);
+    // you can set criterion for good or bad pep label for new user
+    static BigDecimal criterion = BigDecimal.valueOf(500);
+
     ResultSet rs;
 
     public static void main(String[] args) throws SQLException, IOException {
@@ -42,14 +44,14 @@ public class LoanProcessing {
                     System.out.println("only input income and we generate the id auto ");
                     Scanner scan = new Scanner(System.in);
                     BigDecimal income = new BigDecimal(scan.nextLine());
-                    YesOrNo pep=income.compareTo(criterion)>=0?YesOrNo.YES:YesOrNo.NO;
-                    dao.NewInsert(income,pep);
+                    YesOrNo pep = income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
+                    dao.NewInsert(income, pep);
                     break;
                 case 4:
                     // delete some id
                     System.out.println("input id you wanna delete");
                     Scanner delete = new Scanner(System.in);
-                     dao.deletes( delete.nextLine());
+                    dao.deletes(delete.nextLine());
                     break;
                 case 5:
                     dao.printRecords();
@@ -64,6 +66,7 @@ public class LoanProcessing {
             System.out.println();
         } while (true);
     }
+
     public static void menu() {
         String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs\n4.Delete recs\n5.print Recs (Console)\n6.View Recs (Window)\n7.Exit";
         System.out.println(menuItems);

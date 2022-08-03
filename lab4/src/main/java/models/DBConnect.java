@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnect  {
+public class DBConnect {
 
+    private static final String url = "jdbc:mysql://106.12.146.48:3510/wqb_itmd510?rewriteBatchedStatements=true";
+    private static final String username = "root";
+    private static final String password = "itmd510";
     protected Connection connection;
-    public  Connection getConnection() { return connection; }
-
-    private static String url = "jdbc:mysql://106.12.146.48:3510/wqb_itmd510?rewriteBatchedStatements=true";
-    private static String username = "root";
-    private static String password = "itmd510";
-
     public DBConnect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -23,6 +20,10 @@ public class DBConnect  {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
 

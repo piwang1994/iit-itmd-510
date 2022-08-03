@@ -1,15 +1,4 @@
-package records;
-
-import records.enums.YesOrNo;
-
-enum Sex {
-    FEMALE, MALE
-}
-
-enum Region {
-    INNER_CITY, TOWN, RURAL, SUBURBAN
-}
-
+package records.base;
 
 public class Person {
     String id;
@@ -62,7 +51,7 @@ public class Person {
     }
 
     public void setIncome(Double income) {
-        this.income=income;
+        this.income = income;
     }
 
     public YesOrNo getMarried() {
@@ -123,3 +112,4 @@ public class Person {
 
 
 }
+

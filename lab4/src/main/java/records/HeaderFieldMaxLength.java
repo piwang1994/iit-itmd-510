@@ -9,6 +9,10 @@ public class HeaderFieldMaxLength {
     int married;
     int children;
     int car;
+    int save_act;
+    int current_act;
+    int mortgage;
+    int pep;
 
     public int getId() {
         return id;
@@ -105,9 +109,4 @@ public class HeaderFieldMaxLength {
     public void setPep(int pep) {
         this.pep = pep;
     }
-
-    int save_act;
-    int current_act;
-    int mortgage;
-    int pep;
 }

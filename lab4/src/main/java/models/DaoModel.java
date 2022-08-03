@@ -1,11 +1,10 @@
 package models;
 
-import records.Person;
-import records.enums.YesOrNo;
+import records.base.Person;
+import records.base.YesOrNo;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.Comparator;
 import java.util.List;
 
 public class DaoModel {
@@ -27,9 +26,9 @@ public class DaoModel {
         return new DBConnect().getConnection();
     }
 
-    public  void NewInsert(BigDecimal income, YesOrNo pep) throws SQLException {
+    public void NewInsert(BigDecimal income, YesOrNo pep) throws SQLException {
         String newId = getNewId();
-        System.out.println("welcome customer,your id number is "+newId);
+        System.out.println("welcome customer,your id number is " + newId);
 
 
         String SQL = "INSERT into records values(?,?,?)";
@@ -44,9 +43,9 @@ public class DaoModel {
         }
     }
 
-    public  void deletes(String id) throws SQLException {
+    public void deletes(String id) throws SQLException {
         // finish implementing...
-        int rs = stmt.executeUpdate("delete from records where id="+"'"+id+"'");
+        int rs = stmt.executeUpdate("delete from records where id=" + "'" + id + "'");
     }
 
     public void printRecords() {
@@ -81,12 +80,13 @@ public class DaoModel {
 
     public String getNewId() throws SQLException {
         ResultSet rs = stmt.executeQuery("select max(id) from records");
-        String id="id12099";
+        String id = "id12099";
         while (rs.next()) {
-            id= rs.getString(1);
+            id = rs.getString(1);
         }
         return id.substring(0, 2) + (Integer.parseInt(id.substring(2)) + 1);
     }
+
     public void createTables() throws SQLException {
         String create_sql = "CREATE TABLE  if not exists  `records` (\n" +
                 "  `id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
@@ -131,7 +131,7 @@ public class DaoModel {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             conn.setAutoCommit(true);
         }
     }

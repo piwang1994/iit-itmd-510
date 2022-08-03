@@ -1,6 +1,9 @@
 package records;
 
-import records.enums.YesOrNo;
+import records.base.Person;
+import records.base.Region;
+import records.base.Sex;
+import records.base.YesOrNo;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,23 +19,24 @@ import java.util.List;
 utilize the records.Client asbtract methods and generate ultimately the client records from the csv file.
  */
 public class BankRecords extends Client {
+    //store the data in ffile
+    public List<ArrayList<String>> arr = new ArrayList<>();
+    public List<Person> objs = new ArrayList<>();
     String path;
     int printCount = 25;
     String fields = "ID,AGE,SEX,REGION,INCOME,MORTGAGE";
     // store the maxLength of every attribute
     HeaderFieldMaxLength maxLength = new HeaderFieldMaxLength();
-    //store the data in ffile
-    public List<ArrayList<String>> arr= new ArrayList<>();
-
-    public List<Person> objs=new ArrayList<>();
 
     public BankRecords(String path) {
         this.path = path;
     }
+
     public BankRecords(String path, String fields) {
         this.path = path;
         this.fields = fields;
     }
+
     public BankRecords(String path, int printCount) {
         this.path = path;
         this.printCount = printCount;
@@ -59,7 +63,7 @@ public class BankRecords extends Client {
 //            System.out.println(line);
 //            Arrays.asList(info).forEach(System.out::println);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("check your data or path ");
             throw e;
@@ -72,44 +76,44 @@ public class BankRecords extends Client {
         for (ArrayList<String> strings : arr) {
             Person person = new Person();
 
-//            add the data into each of  instance fields via  setters of records.Person
+//            add the data into each of  instance fields via  setters of records.base.Person
             try {
 
                 person.setId(strings.get(0));
-                maxLength.setId(Math.max(strings.get(0).length(),maxLength.getId()));
+                maxLength.setId(Math.max(strings.get(0).length(), maxLength.getId()));
 
                 person.setAge(Integer.parseInt(strings.get(1)));
-                maxLength.setAge(Math.max(strings.get(1).length(),maxLength.getAge()));
+                maxLength.setAge(Math.max(strings.get(1).length(), maxLength.getAge()));
 
                 person.setSex(Sex.valueOf(strings.get(2)));
-                maxLength.setSex(Math.max(strings.get(2).length(),maxLength.getSex()));
+                maxLength.setSex(Math.max(strings.get(2).length(), maxLength.getSex()));
 
                 person.setRegion(Region.valueOf(strings.get(3)));
-                maxLength.setRegion(Math.max(strings.get(3).length(),maxLength.getRegion()));
+                maxLength.setRegion(Math.max(strings.get(3).length(), maxLength.getRegion()));
 
                 person.setIncome(Double.valueOf(strings.get(4)));
-                maxLength.setIncome(Math.max(strings.get(4).length(),maxLength.getIncome()));
+                maxLength.setIncome(Math.max(strings.get(4).length(), maxLength.getIncome()));
 
                 person.setMarried(YesOrNo.valueOf(strings.get(5)));
-                maxLength.setMarried(Math.max(strings.get(5).length(),maxLength.getMarried()));
+                maxLength.setMarried(Math.max(strings.get(5).length(), maxLength.getMarried()));
 
                 person.setChildren(Integer.parseInt(strings.get(6)));
-                maxLength.setChildren(Math.max(strings.get(6).length(),maxLength.getChildren()));
+                maxLength.setChildren(Math.max(strings.get(6).length(), maxLength.getChildren()));
 
                 person.setCar(YesOrNo.valueOf(strings.get(7)));
-                maxLength.setCar(Math.max(strings.get(7).length(),maxLength.getCar()));
+                maxLength.setCar(Math.max(strings.get(7).length(), maxLength.getCar()));
 
                 person.setSave_act(YesOrNo.valueOf(strings.get(8)));
-                maxLength.setSave_act(Math.max(strings.get(8).length(),maxLength.getSave_act()));
+                maxLength.setSave_act(Math.max(strings.get(8).length(), maxLength.getSave_act()));
 
                 person.setCurrent_act(YesOrNo.valueOf(strings.get(9)));
-                maxLength.setCurrent_act(Math.max(strings.get(9).length(),maxLength.getCurrent_act()));
+                maxLength.setCurrent_act(Math.max(strings.get(9).length(), maxLength.getCurrent_act()));
 
                 person.setMortgage(YesOrNo.valueOf(strings.get(10)));
-                maxLength.setMortgage(Math.max(strings.get(10).length(),maxLength.getMortgage()));
+                maxLength.setMortgage(Math.max(strings.get(10).length(), maxLength.getMortgage()));
 
                 person.setPep(YesOrNo.valueOf(strings.get(11)));
-                maxLength.setPep(Math.max(strings.get(11).length(),maxLength.getPep()));
+                maxLength.setPep(Math.max(strings.get(11).length(), maxLength.getPep()));
                 objs.add(person);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -127,8 +131,8 @@ public class BankRecords extends Client {
 //        ID, AGE, SEX, REGION, INCOME, and MORTGAGE
         int cnt = 0;
         for (String s : fields.split(",")) {
-                Field fl = maxLength.getClass().getDeclaredField(s.toLowerCase());
-                System.out.printf("%-"+(Math.max(s.length(),(int)fl.get(maxLength)+3))+"s",s);
+            Field fl = maxLength.getClass().getDeclaredField(s.toLowerCase());
+            System.out.printf("%-" + (Math.max(s.length(), (int) fl.get(maxLength) + 3)) + "s", s);
 
         }
         System.out.println();
@@ -139,7 +143,7 @@ public class BankRecords extends Client {
                 Field f = obj.getClass().getDeclaredField(s.toLowerCase());
                 Field fl = maxLength.getClass().getDeclaredField(s.toLowerCase());
 
-                System.out.printf("%-"+(Math.max(s.length(),(int)fl.get(maxLength)+3))+"s",f.get(obj));
+                System.out.printf("%-" + (Math.max(s.length(), (int) fl.get(maxLength) + 3)) + "s", f.get(obj));
             }
             System.out.println();
             if (this.printCount == ++cnt) break;
