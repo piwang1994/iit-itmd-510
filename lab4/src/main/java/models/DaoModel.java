@@ -8,8 +8,8 @@ import java.sql.*;
 import java.util.List;
 
 public class DaoModel {
-    static Statement stmt;
-    static Connection conn;
+    public static Statement stmt;
+    public static Connection conn;
 
     public DaoModel() {
         try {

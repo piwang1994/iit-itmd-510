@@ -78,7 +78,11 @@ public class LoanProcessing {
                     break;
 
                 case 10:
+
                     System.out.println("bye for now!");
+                    if(DaoModel.conn!=null){
+                        DaoModel.conn.close();
+                    }
                     System.exit(0);
             }
             System.out.println();
