@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class LoanProcessing {
@@ -31,6 +30,8 @@ public class LoanProcessing {
 
         Scanner sc = new Scanner(System.in);
         do {
+            BigDecimal income;
+            YesOrNo pep;
             menu();
             int choice = sc.nextInt();
             switch (choice) {
@@ -43,30 +44,40 @@ public class LoanProcessing {
                 case 3:
                     System.out.println("only input income and we generate the id auto ");
                     Scanner scan = new Scanner(System.in);
-                    BigDecimal income = new BigDecimal(scan.nextLine());
-                    YesOrNo pep = income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
+                    income = new BigDecimal(scan.nextLine());
+                    pep = income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
                     dao.NewInsert(income, pep);
                     break;
                 case 4:
+                    // delete some id
+                    System.out.println("input info you wanna update,for example 'id,income'");
+                    Scanner update = new Scanner(System.in);
+                    String[] info = update.nextLine().split(",");
+                    String id = info[0];
+                    income = new BigDecimal( info[1]);
+                    pep= income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
+                    dao.update(id,income,pep);
+                    break;
+                case 5:
                     // delete some id
                     System.out.println("input id you wanna delete");
                     Scanner delete = new Scanner(System.in);
                     dao.deletes(delete.nextLine());
                     break;
-                case 5:
+                case 6:
                     dao.printRecords();
                     break;
-                case 6:
+                case 7:
                     viewRecs(dao.getGoodRecords());
                     break;
-                case 7:
+                case 8:
                     serialObject(objs);
                     break;
-                case 8:
+                case 9:
                     deSerialObject();
                     break;
 
-                case 9:
+                case 10:
                     System.out.println("bye for now!");
                     System.exit(0);
             }
@@ -75,10 +86,9 @@ public class LoanProcessing {
     }
 
     public static void menu() {
-        String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs" +
-                "\n4.Delete recs\n5.print all Recs (Console)\n6.View good Recs (Window)" +
-                "\n7.Serial recs\n8.deSerial Recs" +
-                "\n9.Exit";
+        String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs\n4.update recs" +
+                "\n5.Delete recs\n6.print all Recs (Console)\n7.View good Recs (Window)" +
+                "\n8.Serial recs\n9.deSerial Recs\n10.Exit";
         System.out.println(menuItems);
     }
 
@@ -116,7 +126,7 @@ public class LoanProcessing {
 
     public static void deSerialObject() {
 
-        BankRecordSerialObject beso = null;
+        BankRecordSerialObject beso;
         try {
             FileInputStream fis = new FileInputStream("BankRecordSerialObject.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -134,11 +144,11 @@ public class LoanProcessing {
         System.out.println("Deserialized HashMap..");
         // Display content using Iterator
 
-        Set set = beso.BRmap.entrySet();
+        Set<Map.Entry<Long, Person>> set = beso.BRmap.entrySet();
         System.out.println(set);
-        Iterator iterator = set.iterator();
+        Iterator<Map.Entry<Long, Person>> iterator = set.iterator();
         while (iterator.hasNext()) {
-            Map.Entry mentry = (Map.Entry) iterator.next();
+            Map.Entry<Long, Person> mentry = iterator.next();
             System.out.print("key: " + mentry.getKey() + " & Value: ");
             System.out.println(mentry.getValue());
         }

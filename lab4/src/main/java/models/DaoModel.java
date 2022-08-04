@@ -25,7 +25,18 @@ public class DaoModel {
     public static Connection connect() throws SQLException {
         return new DBConnect().getConnection();
     }
-
+    public void update(String Id,BigDecimal income,YesOrNo pep) {
+        String SQL = "replace into records values(?,?,?)";
+        // use prepared statement
+        try (PreparedStatement pstmt = connect().prepareStatement(SQL)) {
+            pstmt.setString(1, Id);
+            pstmt.setObject(2, income);
+            pstmt.setString(3, pep.name());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void NewInsert(BigDecimal income, YesOrNo pep) throws SQLException {
         String newId = getNewId();
         System.out.println("welcome customer,your id number is " + newId);
