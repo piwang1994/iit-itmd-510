@@ -15,10 +15,13 @@ public class DBConnect  {
 
 	public DBConnect() {
 		try {
+            Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
 			System.out.println("Error creating connection to database: " + e);
 			System.exit(-1);
-		}
-	}
+		} catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
      }

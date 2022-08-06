@@ -33,7 +33,7 @@ public class LoginManager {
 
 	public void showLoginScreen() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
 			scene.setRoot((Parent) loader.load());
 			LoginController controller = loader.getController();
 			controller.initManager(this);
@@ -44,7 +44,7 @@ public class LoginManager {
 
 	private void showMainView(String sessionID) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("mainview.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainview.fxml"));
 			scene.setRoot((Parent) loader.load());
 			MainViewController controller = loader.getController();
 			controller.initSessionID(this, sessionID);

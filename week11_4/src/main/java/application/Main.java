@@ -20,13 +20,16 @@ public class Main extends Application {
             System.out.println(url);
             AnchorPane root = (AnchorPane) FXMLLoader.load(url);
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            url=getClass().getResource("application.css");
+            System.out.println(url);
+			scene.getStylesheets().add(url.toExternalForm());
 			stage.setTitle("Login View");
 			stage.setScene(scene);
 			stage.show();
 
 		} catch (Exception e) {
 			System.out.println("Error occurred while inflating view: " + e);
+            e.printStackTrace();
 		}
 	}
 

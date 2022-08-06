@@ -13,15 +13,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+            System.out.println(System.getProperty("user.dir"));
 			stage = primaryStage;
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
+			AnchorPane root = FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			stage.setTitle("Login View");
 			stage.setScene(scene);
 			stage.show();
 
 		} catch (Exception e) {
+            e.printStackTrace();
 			System.out.println("Error occurred while inflating view: " + e);
 		}
 	}
