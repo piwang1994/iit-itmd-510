@@ -25,27 +25,20 @@ public class DaoModel {
     public static Connection connect() throws SQLException {
         return new DBConnect().getConnection();
     }
-    public void update(String Id,BigDecimal income,YesOrNo pep) {
-        String SQL = "replace into records values(?,?,?)";
-        // use prepared statement
-        try (PreparedStatement pstmt = connect().prepareStatement(SQL)) {
-            pstmt.setString(1, Id);
-            pstmt.setObject(2, income);
-            pstmt.setString(3, pep.name());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void update(String Id,BigDecimal income,YesOrNo pep) throws SQLException {
+        String SQL = "select max(pid) pid from  records where Id='"+Id+"'";
+        ResultSet resultSet = stmt.executeQuery(SQL);
+        if (resultSet.next()) {
+            if (resultSet.getString("pid") != null) {
+                SQL = "replace into records(pid,id,income,pep) values(" + "'"+resultSet.getString("pid")+ "'" + ",?,?,?)";
+            } else {
+                SQL = "replace into records(id,income,pep) values(?,?,?)";
+            }
         }
-    }
-    public void NewInsert(BigDecimal income, YesOrNo pep) throws SQLException {
-        String newId = getNewId();
-        System.out.println("welcome customer,your id number is " + newId);
-
-
-        String SQL = "INSERT into records values(?,?,?)";
+        System.out.println(SQL);
         // use prepared statement
-        try (PreparedStatement pstmt = connect().prepareStatement(SQL)) {
-            pstmt.setString(1, newId);
+        try (PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+            pstmt.setString(1, Id);
             pstmt.setObject(2, income);
             pstmt.setString(3, pep.name());
             pstmt.executeUpdate();
@@ -66,9 +59,10 @@ public class DaoModel {
             ResultSet rs = stmt.executeQuery("Select * from records");
             while (rs.next()) {
 
-                String id = rs.getString(1);
-                BigDecimal income = rs.getBigDecimal(2);
-                String pep = rs.getString(3);
+//                String id = rs.getString(1);
+                String id = rs.getString(2);
+                BigDecimal income = rs.getBigDecimal(3);
+                String pep = rs.getString(4);
                 System.out.println("Id : " + id + "\t  Income. : " + income + "\t  pep: " + pep);
             }
             rs.close();
@@ -82,28 +76,21 @@ public class DaoModel {
         ResultSet rs = null;
         // get record data from result set object
         try {
-            rs = stmt.executeQuery("Select * from records where pep='yes'");
+            rs = stmt.executeQuery("Select * from records order by pep desc");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rs;
     }
 
-    public String getNewId() throws SQLException {
-        ResultSet rs = stmt.executeQuery("select max(id) from records");
-        String id = "id12099";
-        while (rs.next()) {
-            id = rs.getString(1);
-        }
-        return id.substring(0, 2) + (Integer.parseInt(id.substring(2)) + 1);
-    }
 
     public void createTables() throws SQLException {
         String create_sql = "CREATE TABLE  if not exists  `records` (\n" +
+                " `pid` INTEGER not NULL AUTO_INCREMENT,\n"+
                 "  `id` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 "  `income` decimal(20,2) DEFAULT NULL,\n" +
                 "  `pep` char(3) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n" +
-                "  PRIMARY KEY (`id`)\n" +
+                "  PRIMARY KEY (`pid`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
         stmt.executeUpdate(create_sql);
 

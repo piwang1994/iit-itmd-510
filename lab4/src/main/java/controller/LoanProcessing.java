@@ -14,14 +14,12 @@ import java.util.*;
 
 
 public class LoanProcessing {
-    // you can set criterion for good or bad pep label for new user
-    static BigDecimal criterion = BigDecimal.valueOf(500);
 
     ResultSet rs;
 
     public static void main(String[] args) throws SQLException, IOException {
-
-        BankRecords bankRecord = new BankRecords("C:\\Users\\86183\\IdeaProjects\\itmd510\\lab4\\bank-Detail.csv");
+        System.out.println(System.getProperty("user.dir"));
+        BankRecords bankRecord = new BankRecords("bank-Detail.csv");
         bankRecord.readData();
         bankRecord.processData();
         DaoModel dao = new DaoModel();
@@ -31,7 +29,7 @@ public class LoanProcessing {
         Scanner sc = new Scanner(System.in);
         do {
             BigDecimal income;
-            YesOrNo pep;
+
             menu();
             int choice = sc.nextInt();
             switch (choice) {
@@ -42,42 +40,34 @@ public class LoanProcessing {
                     dao.inserts(objs);
                     break;
                 case 3:
-                    System.out.println("only input income and we generate the id auto ");
-                    Scanner scan = new Scanner(System.in);
-                    income = new BigDecimal(scan.nextLine());
-                    pep = income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
-                    dao.NewInsert(income, pep);
-                    break;
-                case 4:
-                    // delete some id
-                    System.out.println("input info you wanna update,for example 'id,income'");
+                    System.out.println("input info you wanna update or insert,for example 'id,income,pep'");
                     Scanner update = new Scanner(System.in);
                     String[] info = update.nextLine().split(",");
                     String id = info[0];
                     income = new BigDecimal( info[1]);
-                    pep= income.compareTo(criterion) >= 0 ? YesOrNo.YES : YesOrNo.NO;
+                    YesOrNo pep= YesOrNo.valueOf(info[2]);
                     dao.update(id,income,pep);
                     break;
-                case 5:
+                case 4:
                     // delete some id
                     System.out.println("input id you wanna delete");
                     Scanner delete = new Scanner(System.in);
                     dao.deletes(delete.nextLine());
                     break;
-                case 6:
+                case 5:
                     dao.printRecords();
                     break;
-                case 7:
+                case 6:
                     viewRecs(dao.getGoodRecords());
                     break;
-                case 8:
+                case 7:
                     serialObject(objs);
                     break;
-                case 9:
+                case 8:
                     deSerialObject();
                     break;
 
-                case 10:
+                case 9:
 
                     System.out.println("bye for now!");
                     if(DaoModel.conn!=null){
@@ -90,9 +80,9 @@ public class LoanProcessing {
     }
 
     public static void menu() {
-        String menuItems = "1.Create table\n2.init Insert recs\n3.new Insert recs\n4.update recs" +
-                "\n5.Delete recs\n6.print all Recs (Console)\n7.View good Recs (Window)" +
-                "\n8.Serial recs\n9.deSerial Recs\n10.Exit";
+        String menuItems = "1.Create table\n2.init Insert recs\n3. Insert or update recs" +
+                "\n4.Delete recs\n5.print all Recs (Console)\n6.View good Recs (Window)" +
+                "\n7.Serial recs\n8.deSerial Recs\n9.Exit";
         System.out.println(menuItems);
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class YMSRecords extends Client  {
+public class YMSRecords   {
 	
 	//static objects for IO processing
 	static YMSRecords robjs[] = new YMSRecords[18]; //array of BankRecords objects
@@ -21,7 +21,7 @@ public class YMSRecords extends Client  {
 	public void readData() {
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(new File("data.csv")));
+			br = new BufferedReader(new FileReader("data.csv"));
 
 			String line;
 			while ((line = br.readLine()) != null) {

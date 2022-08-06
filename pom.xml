@@ -25,10 +25,13 @@
         <module>week08</module>
         <module>week09</module>
         <module>week10</module>
-        <module>week10_javafx</module>
         <module>week11_1</module>
         <module>week11_2</module>
         <module>week11_3</module>
         <module>week11_4</module>
+        <module>javaFXDemo1</module>
+        <module>javaFXDemo2</module>
+        <module>javaFXDemo3</module>
+        <module>week11_1</module>
     </modules>
 </project>
