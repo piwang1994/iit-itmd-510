@@ -31,9 +31,7 @@ public class AdminController {
 		conn = new DBConnect();
 	}
 
-	public void viewAccounts() {
-        //todo
-    }
+	public void viewAccounts() { 	}
 
 	public void updateRec() {
 

@@ -15,7 +15,7 @@ public class SerializeDemo {
             FileOutputStream fileOut =
                     new FileOutputStream("employee.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(e);
+                out.writeObject(e);
             out.close();
             fileOut.close();
             System.out.print("Serialized data is saved as employee.ser");

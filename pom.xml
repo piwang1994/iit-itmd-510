@@ -21,6 +21,7 @@
         <module>lab3</module>
         <module>lab4</module>
         <module>week06</module>
+        <module>midterm</module>
         <module>week07</module>
         <module>week08</module>
         <module>week09</module>
@@ -32,6 +33,12 @@
         <module>javaFXDemo1</module>
         <module>javaFXDemo2</module>
         <module>javaFXDemo3</module>
-        <module>week11_1</module>
+        <module>week12_FXTableSB</module>
+        <module>week12_FXTabView</module>
+        <module>week12_1_BankDemo</module>
+        <module>week12_2_BankDemo</module>
+        <module>week12_3_BankDemo</module>
+        <module>week12_4_Hash</module>
+        <module>finalterm</module>
     </modules>
 </project>
