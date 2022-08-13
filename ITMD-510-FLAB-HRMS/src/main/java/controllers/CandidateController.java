@@ -57,10 +57,10 @@ public class CandidateController implements Initializable {
 
         DynamicTable d = new DynamicTable();
         // call method from DynamicTable class and pass some arbitrary query string
-        d.buildData("Select job.* from \n" +
-                "job LEFT JOIN apply\n" +
-                "on job.job_id=apply.job_id\n" +
-                "WHERE apply.job_id is null or apply.cid='"+userid+"'  ");
+        String sql="Select distinct job.*from " +
+                "job WHERE job_id not in (SELECT job_id from apply WHERE cid='"+userid+"'  )";
+        System.out.println(sql);
+        d.buildData(sql);
 
     }
 
