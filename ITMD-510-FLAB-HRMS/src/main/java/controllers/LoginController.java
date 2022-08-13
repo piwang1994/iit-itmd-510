@@ -6,13 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import models.LoginModel;
 
 public class LoginController {
-    @FXML
+
+	@FXML
 	private TextField txtUsername;
 
 	@FXML
@@ -47,6 +47,7 @@ public class LoginController {
 			return;
 		}
 
+
 		// authentication check
 		checkCredentials(username, password);
 
@@ -60,29 +61,29 @@ public class LoginController {
 		}
 		try {
 			AnchorPane root;
-			if (model.isAdmin() && isValid) {
+			if (model.isHr() && isValid) {
 				// If user is admin, inflate admin view
-				root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/AdminView.fxml"));
-				Main.stage.setTitle("Admin View");
+
+				root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/HRView.fxml"));
+				Main.stage.setTitle("HR View");
+
 			} else {
 				// If user is customer, inflate customer view
-				root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/ClientView.fxml"));
+
+				root = (AnchorPane) FXMLLoader.load(getClass().getResource("/views/CandidateView.fxml"));
 				// ***Set user ID acquired from db****
-				int user_id = 1; // hard coded for testing purposes only!!
-				ClientController.setUserId(user_id);
-				Main.stage.setTitle("Client View");
+                String user_id = model.getId();
+				CandidateController.setUserid(user_id);
+				CandidateController.setUserid(user_id);
+				Main.stage.setTitle("apply View");
 			}
+
 			Scene scene = new Scene(root);
 			Main.stage.setScene(scene);
+
 		} catch (Exception e) {
 			System.out.println("Error occured while inflating view: " + e);
 		}
 
 	}
-
-	public void exit() {
-		System.exit(0);
-
-	}
-
 }
