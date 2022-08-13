@@ -47,7 +47,6 @@ public class LoginController {
 			return;
 		}
 
-
 		// authentication check
 		checkCredentials(username, password);
 
