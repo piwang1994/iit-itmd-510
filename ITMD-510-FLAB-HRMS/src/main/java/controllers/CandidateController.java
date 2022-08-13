@@ -65,7 +65,7 @@ public class CandidateController implements Initializable {
     }
 
 
-    public void getApplist() throws IOException {
+    public void getApplist() {
 
         appList.getItems().setAll(cm.getAppList(userid)); // load table data from ClientModel List
         appList.setVisible(true); // set tableview to visible if not
@@ -103,7 +103,7 @@ public class CandidateController implements Initializable {
         }
 
         // The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(balance -> System.out.println("Balance entry: " + balance));
+        result.ifPresent(ele -> System.out.println("Apply for job : " + ele));
 
     }
 

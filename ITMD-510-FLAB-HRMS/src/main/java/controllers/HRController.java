@@ -2,14 +2,11 @@ package controllers;
 
 import Dao.DBConnect;
 import application.DynamicTable;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-import javax.swing.text.html.ImageView;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -45,7 +42,7 @@ public class HRController {
 	private TextField del_jid;
 
 	// Declare DB objects
-	DBConnect conn = null;
+	DBConnect conn;
 	Statement stmt = null;
 
 	public HRController() {
@@ -100,7 +97,7 @@ public class HRController {
         // INSERT INTO BANK TABLE
         try {
             stmt = conn.getConnection().createStatement();
-            String sql = null;
+            String sql;
             sql ="update apply INNER JOIN candidate on apply.cid=candidate.cid\n" +
                     "INNER JOIN job on apply.job_id=job.job_id\n"                 +
                     "SET apply.result='"+appResult.getText()+"'"                  +
